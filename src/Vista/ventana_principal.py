@@ -1,7 +1,4 @@
 import tkinter as Tk
-from matplotlib.figure import Figure
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-from numpy import size
 from tkinter import TclError
 
 class ventanaPrincipal():
