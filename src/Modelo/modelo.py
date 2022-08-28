@@ -2,6 +2,8 @@ import subprocess
 import os
 from pathlib import Path
 from tkinter.filedialog import askdirectory, askopenfilename
+from .descargar_portadas.descargar import descargar2D, descargar3D, descargarCD, descargarCoverFull
+
 
 
 class modelo():
@@ -30,14 +32,30 @@ class modelo():
         self.dirWBFS = self.__selectorWBFS()
 
     def __selectorWBFS(self):
+        
         archivo = askopenfilename(title='Seleccione un juego',
                                   filetypes=(('Juegos', ('*.iso', '*.wbfs')),
                                              ('All', '*.*')))
         return archivo
+    
+    def descargarImagenes(self, dirUSB: str = '', dirISO: str = '/home/songoku/ROMS Juegos/Wii/wbfs/Tetris Party Deluxe [STEETR].wbfs'):
+        dirISO = Path(dirISO).__str__()
+        dirUSB = Path(dirUSB).__str__()
+        ID = subprocess.getoutput(f'wit ID "{dirISO}"')
+        descargar3D(ID,dirUSB)
+        descargar2D(ID,dirUSB)
+        descargarCD(ID,dirUSB)
+        descargarCoverFull(ID,dirUSB)
 
-    def pasarUSB(self, dirUSB: str, dirWBFS: str):
-        dirWBFS = Path(dirWBFS).__str__()
+    def pasarUSB(self, dirUSB: str, dirISO: str):
+        dirISO = Path(dirISO).__str__()
         dirUSB = Path(dirUSB).joinpath('wbfs', '%Y/%+').__str__()
-        comando = ['wit', 'copy', dirWBFS, '--split', '-D', dirUSB]  # %1uT/%+']
+        comando = ['wit', 'copy', dirISO, '--split', '-B', '-P', '-D', dirUSB]  # %1uT/%+']
         subprocess.run(args=comando)
 
+if __name__ == '__main__':
+    #descargarCD()
+    comando = ['wit', 'ID', '/home/songoku/ROMS Juegos/Wii/wbfs/Tetris Party Deluxe [STEETR].wbfs']  # %1uT/%+']
+    model = modelo()
+    model.descargarImagenes()
+    #print(subprocess.getoutput(' '.join(comando)))
