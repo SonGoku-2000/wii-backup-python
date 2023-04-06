@@ -46,6 +46,7 @@ class modelo():
         descargar2D(ID,dirUSB)
         descargarCD(ID,dirUSB)
         descargarCoverFull(ID,dirUSB)
+        print("Portadas descargadas")
 
     def pasarUSB(self, dirUSB: str, dirISO: str):
         dirISO = Path(dirISO).__str__()

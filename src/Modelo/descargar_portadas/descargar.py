@@ -28,6 +28,7 @@ def descargarGametdb(ID, directorio, tipo, tamano:str = '', consola:str = 'wii',
         print(f'Descargando {tipo}...')
         f.write(urllib.request.urlopen(URL).read())  # 'http:art.gametdb.com/wii/cover/US/RUUE01.png').read())
     print(f'Descargado {tipo}')
+    print("---------------------")
 
 def descargar2D(ID:str = 'RUUE01',dirBase:str = ''):
     'cover'
